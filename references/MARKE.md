@@ -56,3 +56,4 @@ Handy-Profilraster, DM-Fenster mit gesendeter Nachricht. Platzhalternamen („D�
 2. Immer zuerst Standbilder zur Freigabe, nie direkt rendern, wenn Konzept oder Overlay-Art neu sind. (18.11.2026)
 3. Overlay-Modus: Overlays unten, Gesicht frei. (18.11.2026)
 4. Reels nach der Reel-Cockpit-Methode: Welten und Layoutwechsel (volle Grafik / Split / Danny voll), nie Karten über dem sprechenden Kopf. (23.11.2026)
+5. Motion Graphics hochwertig: Hauptobjekte plastisch gebaut (Licht, Schatten, Material, Textur: z. B. Wand mit Putz, Farbrolle mit Metallbügel, Relief-Karte, echte Anzeige), nie nur Strichzeichnung oder flache Balken. Handgezeichnete Striche nur als Akzent darüber. (23.11.2026, „die Motion Graphics sind mega minderwertig“)

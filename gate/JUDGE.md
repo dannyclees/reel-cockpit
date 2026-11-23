@@ -37,6 +37,7 @@ eigene Freigaben und Ablehnungen (C&E-Stil v2, 18.11.2026). Neue Notizen von Dan
 | J18 | **Konkretes Beispiel.** Zeigt die Grafik einen echten, konkreten Fall („Däi Betrib kritt 3 Ufroen“) statt eines abstrakten Labels oder Icon-Kacheln? |
 | J19 | **Safe Zone.** Liegt nichts Wichtiges in oben 250 / unten 620 / rechts 140 / links 90 px? Overlays in y 820–1300? |
 | J20 | **Luxemburgisch richtig.** Ist jeder Text im Bild und jede Untertitelzeile nach lod.lu geschrieben, Du/Däin groß, Namen richtig (Clees & Ernster)? |
+| J22 | **Studio-Qualität.** Ist das Hauptobjekt plastisch gebaut (Licht, Schatten, Material, Textur) statt einer Strichzeichnung oder flacher Formen? Würde es neben einem Apple- oder Stripe-Spot bestehen? (Danny, 23.11.2026: „mega minderwertig“) |
 | J21 | **Ehrlich.** Ist jede Zahl, jedes Ergebnis und jeder Kundenname echt und freigegeben, oder klar als Platzhalter erkennbar? Keine Fremdfirma? |
 
 ## WARN-Fragen (Forschung, blockieren allein nicht; in die Fix-Liste)
