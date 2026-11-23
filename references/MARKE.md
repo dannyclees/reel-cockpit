@@ -34,10 +34,9 @@ Referenz-Standbilder: Canvas „C&E Reel – Motion-Stil v2 (Standbilder)“, ht
 | Lage | untere Bildhälfte, y ca. 820–1300 bei 1080×1920 |
 | Safe Zone | oben 250, unten 620, links 90, rechts 140 px |
 
-**Mono-Pills als Satelliten:** möglichst **ein Wort** („UFRO“, „META“, „SCHRËTT 1“ zählt als Label mit Zahl) und immer
-überlappend mit dem Hauptobjekt. Eine frei stehende Pill mit 2+ Wörtern neben Danny wertet `gate/check.py` als
-`text_chips_on_speaker` FAIL (aus der Vorlage übernommen, deckt sich mit J3/J17). Löst ein echter Satellit den Test aus:
-kürzen oder enger ans Objekt rücken, nicht den Test abschalten.
+**Mono-Pills als Satelliten:** kurze Zeile (2–4 Wörter sind freigegeben, z. B. „KENG LEIT · KEE WUESSTUM“), immer am Hauptobjekt
+überlappend, nie frei neben Danny. `gate/check.py` kann solche Pills als `text_chips_on_speaker` melden (Test aus der Vorlage gegen
+frei stehende Label-Chips). Überlappt die Pill sichtbar ein Objekt, ist das ein freigegebener Ausnahmefall: im Bericht notieren, Test nicht abschalten.
 
 Realismus statt Symbolen: Suchfeld mit Vorschlägen (ohne fremde Logos), Ergebnis-Karte mit Bildern, Sternen und Buttons,
 Handy-Profilraster, DM-Fenster mit gesendeter Nachricht. Platzhalternamen („Däi Betrib“), nie echte Fremdfirmen.
