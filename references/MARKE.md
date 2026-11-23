@@ -4,7 +4,7 @@ Quelle: motion-designer-cockpit (Bereich 3 + C&E-Reel-Overlay-Stil v2, freigegeb
 Ändert Danny etwas, hier eintragen und `styles/ce.json` nachziehen. Neueste Notiz gewinnt.
 
 ## Wer spricht, zu wem
-- **Danny** vor der Kamera, meist auf **Luxemburgisch**. Er ist Hauptsache: Gesicht frei, Overlays darunter.
+- **Danny** vor der Kamera, meist auf **Luxemburgisch**. Im Reel wechselt er sich mit vollen Grafiken und Split ab (SKILL.md, Schritt 4).
 - Zielgruppe: Inhaber von Luxemburger Premium-Betrieben (Handwerk, Immobilien, hochpreisige Dienstleistungen).
 - Positionierung: **planbares Anfrage-System für Luxemburger Premium-Betriebe**: psychologisch präzise Werbung + automatisierte
   Nachfassung. KI ist Werkzeug, nie Headline.
