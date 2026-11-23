@@ -1,0 +1,40 @@
+{
+ "name": "Clees & Ernster",
+ "about": "Der feste C&E-Reel-Stil v2 (von Danny freigegeben am 18.11.2026): Papier-Platte und mattes Glas statt flacher Karten, eine Akzentfarbe Blau, Montserrat 800, blauer Pinselstrich unter dem Schlüsselwort. Standard für jedes eigene C&E-Reel.",
+ "style": {
+  "font": "Montserrat",
+  "fonturl": "https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap",
+  "monourl": "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&display=swap",
+  "material": "ce",
+  "lang": "lb",
+  "caption": "#FFFFFF",
+  "capaccent": "#5A86F5",
+  "accent": "#2F6BFF",
+  "panel": "#F7F4EE",
+  "ink": "#0E131E",
+  "line": "rgba(0,0,0,0)",
+  "radius": "18px",
+  "ground": "#06080D",
+  "titlebg": "#F7F4EE"
+ },
+ "tokens": {
+  "blau": "#2F6BFF",
+  "blau_verlauf": ["#5A86F5", "#2F6BFF", "#1A44C2"],
+  "papier": ["#F7F4EE", "#ECE7DD"],
+  "papier_kante": ["#D6CFC1", "#C9C1B1", "#B5AC9A"],
+  "glas": "rgba(14,19,30,.58)",
+  "glas_rand": "rgba(255,255,255,.18)",
+  "glas_blur_px": 28,
+  "drehung_grad": [1.5, 4],
+  "mono": "IBM Plex Mono, Großbuchstaben, Sperrung 3 px",
+  "safe_zone_px": {"oben": 250, "unten": 620, "links": 90, "rechts": 140},
+  "overlay_zone_y": [820, 1300],
+  "motion": {
+   "tempo": 0.85,
+   "dur": {"xs": 0.12, "s": 0.25, "m": 0.45, "l": 0.8},
+   "ease": {"enter": "power4.out", "exit": "power3.in", "accent": "expo.out", "hold": "sine.inOut", "pop": "back.out(1.2)"},
+   "stagger": 0.05
+  }
+ },
+ "offen": "Exakte Logo-Datei (SVG) fehlt noch: bis dahin nur als klar markierter Platzhalter. Referenz-Standbilder: https://claude.ai/artifact/PF4uBzRhT18Waj8yPpkEcR"
+}

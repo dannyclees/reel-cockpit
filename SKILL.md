@@ -1,86 +1,103 @@
 ---
-name: shorts-studio
-description: Turn a raw talking-head recording into a finished, captioned 9:16 Short with Claude Code, edited the way high-baseline creators edit. It finds the Shorts in a long recording, syncs a camera with a separate mic or screen recording, cleans the voice (Auphonic, optional), cuts stutters, repeats and retakes by listening, cuts on meaning, never shows you looking down, builds motion graphics as a few objects that carry across cuts (in YOUR style), adds sound effects that each have a visible cause and an optional music bed (Epidemic Sound in Claude's browser, optional), and will not ship until 29 automatic checks and a 20-test visual gate pass. Your notes become rules. Trigger on /shorts-studio, "edit my short", "make a short from this", "find shorts in this video", "cut this into shorts".
+name: reel-cockpit
+description: Reel-Schnitt für Clees & Ernster – macht aus Dannys Rohaufnahme (meist Luxemburgisch, vor der Kamera) ein fertiges 9:16-Reel für TikTok, Instagram, Facebook und Meta-Ads im festen C&E-Stil v2. Findet die Reels in einer langen Aufnahme, synchronisiert Kamera und separates Mikro, schneidet Versprecher, Wiederholungen und Neuansätze nach Gehör, setzt Wort-für-Wort-Untertitel auf Luxemburgisch, Overlays aus Papier und Glas mit blauem Pinselstrich, Sound mit sichtbarer Ursache, mischt auf -14 LUFS und liefert erst nach bestandener Qualitätsprüfung. Dannys Notizen werden zu Regeln. Immer nutzen bei /reel-cockpit, „schneid mein Reel", „mach ein Reel daraus", „Reels aus diesem Video", „Untertitel aufs Reel", „Reel für TikTok/Insta/Meta", „C&E-Reel" oder wenn eine Rohaufnahme von Danny zum Kurzvideo werden soll.
 ---
 
-# Shorts Studio (v2, 27 Oct 2026)
+# Reel-Cockpit (Clees & Ernster)
 
-Raw recording in, finished Short out. The rules come from measured data, not taste:
-- `references/BASELINE.md`: what creators with a HIGH BASELINE and frequent outliers do (36 creators, 1,971 reels, 58 measured frame by frame).
-- `references/PRINCIPLES.md`: 99 principles (hook, timing, layout, cutting, motion, captions, sound, ending), each with its source.
-- `references/CHECKS.md`: 119 checks. `scripts/qa.py` runs every automatic one.
-- `references/AUDIO.md`, `HOOKS.md`, `CLIPS.md`: sound, hook templates, finding Shorts.
+Rohaufnahme rein, fertiges Reel raus. Auftraggeber ist Danny (Clees & Ernster, Performance Marketing & KI, Luxemburg). Die Reels laufen
+organisch auf TikTok, Instagram und Facebook und als Meta-Ads. Zielgruppe: Inhaber von Luxemburger Premium-Betrieben (Handwerk,
+Immobilien, hochpreisige Dienstleistungen). Jedes Reel ist zugleich Arbeitsprobe: Es muss zeigen, dass C&E Werbung macht, die zündet.
 
-S = this skill's folder. E = `$S/engine`. Work in a project folder P (`P/edit.json`, `P/work/`, `P/deliver/`).
-**Read PRINCIPLES.md and BASELINE.md before designing anything. Ship only at QA PASS. Look at the frames, not just the numbers.**
+Basis ist das MIT-lizenzierte „Shorts Studio“ (Regeln aus 1.971 gemessenen Reels). Die Messregeln gelten weiter. Look, Sprache,
+Plattformen und Geschmack kommen von C&E und Danny. **Wo eine C&E-Regel einer Studienregel widerspricht, gewinnt C&E.**
 
-## 0. Ask (once, one message)
-Send `questions.md` word for word (7 questions: files, long or short, look, layout, graphics, ending word, Epidemic Sound).
-Run `bash $S/scripts/doctor.sh` and fix what it prints.
+S = dieser Skill-Ordner. E = `$S/engine`. Gearbeitet wird in einem Projektordner P = `reels/<datum>-<thema>/` (`P/work/`, `P/deliver/`).
 
-## 1. Sources
-- Camera + separate mic or screen recording: `python3 $S/scripts/sync.py --video cam.mov --audio screen.mov --out work/` (lines up to the ms).
-- Long recording: find the Shorts (`references/CLIPS.md`), then `python3 $S/scripts/clip_cut.py synced.mp4 --words words_raw.json --clips clips.json --out clips --also screen.mp4`.
+## Wissensbasis – lies, was der Auftrag braucht
+- `references/MARKE.md` – C&E-Stil v2, Tokens, Ton, Ehrlichkeitsgrenzen. **Immer lesen.**
+- `references/PLATTFORMEN.md` – TikTok, Instagram, Facebook, Meta-Ads: Maße, Safe Zones, Längen, Cover, Varianten. **Immer lesen.**
+- `references/LUXEMBURGISCH.md` – Transkription, Schreibweise, Füllwörter, Untertitel auf LB/DE/FR. **Bei jeder LB-Aufnahme.**
+- `references/PRINCIPLES.md` + `references/BASELINE.md` – 99 Prinzipien und 19 Messregeln. **Vor dem ersten Layout lesen.**
+- `references/HOOKS.md` – Hook-Rezepte, inkl. C&E-Varianten. `references/CLIPS.md` – Reels in langen Aufnahmen finden.
+- `references/RULES.md`, `references/LAYOUTS.md`, `references/AUDIO.md`, `references/CHECKS.md` – Regeln, plan.json, Ton, alle Prüfungen.
+- `gate/JUDGE.md` – die Augenprüfung (C&E-Fassung). **Vor jeder Übergabe.**
 
-## 2. The cut (by listening, not by reading)
-1. `python3 $S/scripts/repeat_check.py <clip>/words.json --audio <clip>/source.mp4` finds stutters, repeats, restarts and whole-sentence
-   retakes (whisper merges repeats, so it re-listens in 3 s windows). Keep the LAST take of each.
-2. Pick the drops at quiet points (lowest level near each edge) and cut: `python3 $S/scripts/silence_cut.py source.mp4 --out cut1 --words words_raw.json --drop drops.json --min-silence 0.6`.
-3. Clean the voice once, on the cut: `python3 $S/scripts/auphonic.py work/cut.mp4 --out work/cut.mp4` (optional, strongly recommended).
-4. Re-transcribe the cut (`captions.py ... --model medium.en`) and run `repeat_check.py` again. 0 found, or cut again.
-Target: 30 to 55 s, 4+ spoken words per second, no dead air (BL11, BL18).
+Nachbar-Skills: **copywriter-cockpit** liefert Hooks, Skripte und Posttexte (Farbtypen Rot/Gelb/Grün/Blau). **motion-designer-cockpit**
+liefert Standbilder-Freigabe, aufwendige Overlays und ProRes-Lieferung für DaVinci. Dieser Skill macht den Schnitt und das Reel.
 
-## 3. Face, look-downs, camera cuts
-- `$S/bin/face_track work/cut.mp4 work/face.json 10` (Apple Vision, on the Mac).
-- Look-downs: head tipped 9 deg+ below his usual for 0.2 s+ (blinks are not look-downs). Write `work/eyes_down.json`.
-  Check the borderline ones BY EYE (a frame strip): a head tilt with the eyes on the lens is fine; eyes on the desk is not.
-- Camera joins (every cut point in the cut): `work/joins.json`.
-- Framing: `python3 $E/short/bases.py <P>` (face 37 % of the frame or panel, measured from the face box).
+## 0. Fragen (einmal, eine Nachricht)
+Schick `references/questions.md` (7 Fragen). Überspring, was Danny schon gesagt hat. „go“ heißt: alle Standards.
+Dann `bash $S/scripts/doctor.sh` und beheben, was es meldet.
 
-## 4. Director pass: the layout comes from the sentences
-Write `edit.json` "layout" (untrimmed times, `"timeline": "pretrim"`): windows [start, end, split|anim|jack, world].
-- **One idea per shot, 2 to 5 s, none under 1.5 s.** Median about 3 s (BL06). 6 to 18 switches per 40 s.
-- **Switch on a phrase end, or ON the word the next shot shows.** Never mid-phrase for no reason.
-- **The speaker:** never on screen while looking down (a graphic covers it); never gone more than 4.5 s; full screen only on the
-  turns and punchlines (8 to 22 %); speaker on screen at most 56 % (approved Short) to 70 % (BL08).
-- **Every camera join** lands on a switch or under a full graphic (never inside a split or full-speaker window).
-- **Frame 0** shows a clear object and the speaker talks from 0.0 s (BL12). Proof first when there is proof (BL09).
-Check it before building: `python3 $S/scripts/layout_check.py <P>` (look-downs, joins, shot lengths, presence, shares). LAYOUT OK first.
+## 1. Quellen
+- Kamera + separates Mikro/Bildschirmaufnahme: `python3 $S/scripts/sync.py --video cam.mov --audio mic.wav --out work/` (auf die ms).
+- Lange Aufnahme: Transkript (Schritt 2.4), dann Reels finden (`references/CLIPS.md`), dann
+  `python3 $S/scripts/clip_cut.py synced.mp4 --words work/words_raw.json --clips clips.json --out work/clips`.
 
-## 5. Motion: worlds, not cards
-Write `P/scenes.js` (see `examples/draw/scenes.js`). The library (`$E/short/lib`) gives you:
-- `world(id)`: ONE object that lives across several windows. Each split <-> full switch inside it uses one move from a kit (R46):
-  `cut` (hard cut, the camera settles from a 5 % punch-in), `wipe` / `wipeR` (the full frame wipes in sideways, 0.34 s), `grow` (the
-  panel grows up or down). Mostly cuts; never the same non-cut move twice in a row. Set the order in edit.json
-  `"transitions": ["grow", "cut", "wipe", ...]` (one per switch, in time order). Next to a look-down use `grow` (it covers the face
-  first); a sideways wipe leaves the face on screen until half way. The sound follows the move: cut silent, wipe swoosh, grow whoosh.
-- `camera(Wd, framesPerWindow, moves)`: the camera re-frames the same world per window and glides inside a window (never under 0.6 s).
-- `land`, `fadeUp`, `enter`: calm entrances (opacity in 0.12 s, never a grey half-faded frame). `sketchPath`, `sketchRect`,
-  `sketchCircle`, `sketchArrow`, `drawOn`: hand-drawn strokes that draw themselves. `typer`, `press`, `ring`, `mkTick`, `tickAt`.
-- `sfx(t, role, cause)`: every sound names what moves on screen (a key, a click, a card landing, a message arriving).
-Rules: 5 to 8 worlds per Short; each world carries on (a browser types a URL and changes page, a phone changes screen).
-Text in about half the frames, 1 to 2 overlay words (BL01, BL02); at most 3 designed animations in the first 5 s (BL03); at most
-2 new things in any 0.5 s; no idle wobble after a landing; the moving thing is the proof (real UI, the real output).
-Real assets only (`scripts/capture_ui.mjs --shot "selector"` captures one real element sharp). Never grey stand-in bars.
+## 2. Der Schnitt (nach Gehör, nicht nach Lesen)
+Sprache: `export REEL_LANG=lb` (Standard; `de`, `fr`, `en` möglich). Nie ein `*.en`-Modell für Luxemburgisch.
+1. `python3 $S/scripts/captions.py <clip> --out work` (whisper large-v3, LB). Transkript lesen, **Fehlhörer sofort korrigieren**
+   (`scripts/fix_words.py`, Wörterbuch in `references/LUXEMBURGISCH.md`). Luxemburgisch hört Whisper schlecht: jede Zeile prüfen.
+2. `python3 $S/scripts/repeat_check.py work/words_raw.json --audio <clip>` findet Stottern, Wiederholungen, Neuansätze. Immer den
+   LETZTEN Take behalten. Füllwörter („äh“, „ähm“, „also“, „jo“, „bon“, „gell“) gehören in die Drops, wenn sie den Satz nicht tragen.
+3. Drops an leisen Stellen schneiden: `python3 $S/scripts/silence_cut.py <clip> --out work/cut1 --words work/words_raw.json --drop drops.json --min-silence 0.6`.
+4. Stimme einmal säubern, auf dem Schnitt: `python3 $S/scripts/auphonic.py work/cut.mp4 --out work/cut.mp4` (optional, stark empfohlen).
+5. Schnitt neu transkribieren, korrigieren, `repeat_check.py` nochmal: 0 Funde, sonst nachschneiden.
+Ziel: 25 bis 50 s, keine tote Luft, erstes Wort bei 0,0 s. Luxemburgisch spricht sich langsamer als Englisch: 3,2+ Wörter/s reicht.
 
-## 6. Build, render, sound
+## 3. Gesicht, Blick nach unten, Kamerasprünge
+- `$S/bin/face_track work/cut.mp4 work/face.json 10` (Apple Vision, nur auf dem Mac; ohne Mac: Gesichtsbox aus `scripts/frames.sh`-Standbildern ablesen).
+- Blick nach unten (Kopf 9°+ unter normal für 0,2 s+) → `work/eyes_down.json`. Grenzfälle per Bildstreifen mit eigenen Augen prüfen.
+- Jede Schnittstelle → `work/joins.json`. Nie ein nackter Jump Cut: Layoutwechsel, Grafik oder zweite Einstellung darüber.
+
+## 4. Layout aus den Sätzen
+Standard für C&E: **Danny bleibt Hauptsache.** Vollbild-Danny, Overlays in der unteren Hälfte (y 820–1300), Gesicht frei.
+Split (Beweis oben, Danny unten) nur, wenn es echten Beweis gibt: Ads-Manager, Anfrage-Formular, echte Kunden-Ad (freigegeben).
+- Eine Idee pro Einstellung, 2 bis 5 s, keine unter 1,5 s. Wechsel am Satzende oder AUF dem Wort, das die nächste Einstellung zeigt.
+- Frame 0: Danny spricht, eine klare Headline steht (2 bis 6 Wörter). Beweis zuerst, wenn es Beweis gibt.
+- Welten-Engine (`edit.json`): vor dem Bauen `python3 $S/scripts/layout_check.py <P>` → LAYOUT OK.
+
+## 5. Overlays im C&E-Stil v2
+Stil: `styles/ce.json` in den `"style"`-Block von `plan.json` kopieren (`"material": "ce"` schaltet Papier, Glas und Pinselstrich an).
+**Neues Konzept oder neue Overlay-Art: erst 4–5 Standbilder zur Freigabe** (motion-designer-cockpit), nie direkt rendern.
+- Material statt Fläche: Papier-Platte mit Kante oder mattes Glas, leicht gedreht (±1,5–4°). Nie flache Pills ohne Material.
+- 1–2 Satelliten pro Hauptobjekt (Mono-Pill, Icon im Glas- oder Blau-Kreis, große Zahl mit kleinem Label).
+- Realismus: echte Oberflächen nachbauen (Suchfeld, Ergebnis-Karte, Handy-Profilraster, DM-Fenster) mit Platzhalternamen
+  („Däi Betrib“), nie echte Fremdfirmen. Höchstens 3 Wörter + 1 Zahl pro Grafik. `**Wort**` bekommt den blauen Pinselstrich.
+- Text im Bild auf Luxemburgisch (Schreibweise nach lod.lu), Du/Däin groß.
+Graphik-Typen und Aufbau: `references/LAYOUTS.md`, Beispiel `examples/edit-plan.json`.
+
+## 6. Bauen, rendern, Ton
 ```bash
-cd $E && python3 shared/run.py <P> --only trim,prep,gen,check
-bash short/render.sh <P> final
-python3 audio/sound.py <P> [--music <licensed track>]
+python3 $S/scripts/edit_build.py --cut work/cut.mp4 --words work/words.json --plan plan.json --out work/edit
+python3 $S/scripts/export_edit.py --project work/edit --work work --out deliver/reel.mp4 --quality high [--nle]
+python3 $S/scripts/mix.py deliver/reel.mp4 --out deliver/reel-final.mp4 [--music <lizenzierter Track>]
 ```
-`check` = the DOM spacing check (32 px gaps, 48 px margins, captions clear, hero 65 %+). `sound.py` levels effects by event loudness
-(median 12 dB under the voice), music 13.5 dB under, -14 LUFS, then runs the lip sync test. Music: `references/AUDIO.md` (Epidemic
-Sound in Claude's browser if they said yes to question 7; they sign in themselves; ask before "Confirm & Download").
+`--nle` legt zusätzlich ein Overlay-`.mov` mit Alpha, eine XML-Timeline und eine `.srt` für DaVinci/Premiere ab.
+Ton: -14 LUFS, Spitzen unter -1 dBTP, Musik ca. 14 dB unter der Stimme. Musik ist optional (56 % der viralen Reels haben keine).
+Epidemic Sound nur mit dem **eigenen C&E-Abo** (`references/AUDIO.md`); die IDs im Sound-Kit stammen aus der Vorlage und müssen
+mit Dannys Konto neu geladen werden. Vor „Confirm & Download“ immer Danny fragen.
+Fortgeschritten (Welten-Engine mit `edit.json` + `scenes.js`): `python3 $E/shared/run.py <P> --only trim,prep,gen,check`.
+Im Upload fehlen dafür `engine/short/render.sh` und `engine/pack/pack.py` – bis sie nachgereicht sind, den Weg oben nehmen.
 
-## 7. QA: nothing ships until it passes
+## 7. Prüfung: nichts geht raus, bevor sie besteht
 ```bash
-python3 $S/scripts/qa.py <P> --accents "#accent1,#accent2"
+python3 $S/scripts/gate.py --project work/edit --final deliver/reel-final.mp4      # Standardweg (plan.json)
+python3 $S/scripts/qa.py <P> --video deliver/reel-final.mp4 --accents "#2F6BFF"    # Welten-Engine (edit.json, design.json)
 ```
-29 checks in one list (voice, eyes, timing, motion, sound, text, export, the 20-test visual gate). Fix every FAIL, re-run.
-Then look at a contact sheet (2 frames a second) like a hawk: empty frames, grey frames, tiny graphics, text over the face, anything
-glitchy. A check that passes on a bad frame means the check is wrong: fix the check, write the rule down.
+Jedes FAIL beheben, neu laufen lassen. Dann den Kontaktbogen (2 Bilder/s) mit dem Read-Tool ansehen und `gate/JUDGE.md`
+durchgehen: leere oder graue Frames, zu kleine Grafiken, Text über dem Gesicht, etwas in der Safe Zone, falsch geschriebenes
+Luxemburgisch, erfundene Zahl. Ein Check, der bei einem schlechten Frame PASS sagt, ist falsch: Check reparieren, Regel aufschreiben.
 
-## 8. Notes become rules
-Save every note from the creator word for word (`scripts/learn.py note`). A note that repeats becomes a rule, a check in qa.py and
-a line in PRINCIPLES.md. Fix the template, not just the video.
+## 8. Übergabe
+- `deliver/reel-final.mp4` mit `SendUserFile`, dazu eine Zeile: Länge, Sprache, Hook-Typ, für welche Plattform.
+- Dateiname: `CE_<Thema>_<Hook>_9x16_<Länge>s_vN.mp4`. Für Meta-Feed zusätzlich 4:5, wenn gewünscht (`references/PLATTFORMEN.md`).
+- Cover-Frame (Titel in der mittleren 3:4-Zone) und Posttext (aus copywriter-cockpit) mitliefern.
+- Annahmen nennen (Logo-Platzhalter, ungeprüfte LB-Schreibweise, Musiklizenz).
+- Ein konkreter nächster Schritt: z. B. 4 Hook-Varianten (eine pro Farbtyp) für einen Meta-A/B-Test.
+
+## 9. Notizen werden Regeln
+Jede Notiz von Danny wörtlich speichern: `python3 $S/scripts/learn.py note "<seine Worte>" --short <name>`.
+Kommt eine Notiz zweimal, wird sie Regel (`learn.py promote`), eine Frage in `gate/JUDGE.md` und eine Zeile in `references/MARKE.md`.
+Alles liegt in `~/.reel-cockpit/` (außerhalb des Skills, Updates löschen es nicht). Das Template reparieren, nicht nur das Video.

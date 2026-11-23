@@ -1,31 +1,24 @@
-# Shorts Studio
+# Reel-Cockpit (Clees & Ernster)
 
-Turn a raw recording into a finished Short. It cuts, captions and checks your Short against rules from viral Reels, all in your own style.
+Aus Dannys Rohaufnahme wird ein fertiges 9:16-Reel für TikTok, Instagram, Facebook und Meta-Ads: geschnitten nach Gehör,
+mit Untertiteln auf Luxemburgisch, Overlays im C&E-Stil v2 und einer Qualitätsprüfung, die vor der Übergabe bestehen muss.
 
-## 📦 What you get
-- It finds the best Shorts inside a long recording, or tightens one you already filmed.
-- It cuts silences, warm-up words and retakes.
-- It lays you out: full face, or your screen on top and you below.
-- It adds word-by-word captions, a hook title and cards that land on the right word. Never over your face.
-- It exports an MP4, plus Premiere or DaVinci files if you want them.
+## Was drin ist
+- `SKILL.md`: der Ablauf (Fragen → Schnitt → Gesicht → Layout → Overlays → Bauen → Prüfung → Übergabe → Notizen werden Regeln).
+- `references/`: C&E-Marke (`MARKE.md`), Plattformen (`PLATTFORMEN.md`), Luxemburgisch (`LUXEMBURGISCH.md`), dazu die Messregeln
+  der Vorlage (`PRINCIPLES.md`, `BASELINE.md`, `CHECKS.md`, `HOOKS.md`, `RULES.md`, `LAYOUTS.md`, `AUDIO.md`, `CLIPS.md`).
+- `styles/ce.json`: der feste C&E-Stil (Blau #2F6BFF, Montserrat 800, Papier und Glas). Die vier neutralen Presets bleiben als Reserve.
+- `scripts/`: Schnitt, Sync, Untertitel, Bauen, Export, Mix, Prüfung. `engine/`: die Welten-Engine. `gate/`: visuelle Prüfung + `JUDGE.md`.
 
-## ⚙️ Set it up (2 minutes)
-1. Unzip the download into `~/.claude/skills/`
-2. Open Claude Code and say: **edit my short**. The first time, Claude checks your computer and installs what is missing.
-3. Optional: for a studio-clean voice, get a free [Auphonic](https://auphonic.com) key (2 hours a month free).
+## Einrichten
+1. Ordner nach `~/.claude/skills/reel-cockpit/` kopieren (oder als Skill in claude.ai hochladen).
+2. In Claude Code: **„schneid mein Reel“**. Beim ersten Mal prüft `scripts/doctor.sh`, was fehlt (Node 22+, ffmpeg, Python + numpy, whisper).
+3. Optional: Auphonic-Key in `.env` (`AUPHONIC_API_KEY=...`), nie in den Chat.
 
-## 🚀 Use it
-- Open Claude Code in the folder with your recording.
-- Say: **edit my short**
-- Long recording? Say: **find the best shorts in this video**
+## Bekannte Lücken (aus dem Upload)
+- `engine/short/render.sh`, `engine/pack/pack.py`, `scripts/sfx_mix.py`, `scripts/make_bed.py` und die Sound-Dateien fehlen.
+  Der Standardweg (`edit_build.py` → `export_edit.py` → `mix.py` → `gate.py`) ist vollständig; die Welten-Engine noch nicht.
+- `bin/face_track` und `gate/bin/vision` sind Apple-Silicon-Programme (nur Mac).
+- Die Epidemic-IDs im Sound-Kit stammen aus der Vorlage (Jack Roberts) und gelten nur nach Neu-Download mit dem C&E-Abo.
 
-## ✅ What makes it work
-- It syncs a separate mic or screen recording to your camera, to the millisecond.
-- It levels the sound to -14 LUFS, the level the platforms expect.
-- A quality gate must pass before it exports.
-- Your notes become rules. Every Short gets better than the last.
-
-## ⚠️ Keep your key safe
-Put your Auphonic key in a `.env` file. Never paste it into the chat.
-
-Built on HyperFrames (HTML + GSAP rendered to video) and ffmpeg. MIT licence.
+Basis: „Shorts Studio“ (MIT-Lizenz, siehe `LICENSE`), angepasst für Clees & Ernster.
