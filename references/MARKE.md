@@ -18,7 +18,7 @@ var M = { tempo: 0.85, dur: { xs: 0.12, s: 0.25, m: 0.45, l: 0.8 },
 ```
 Signatur in jedem Reel: der **blaue Pinselstrich**, der mit `expo.out` unter dem Schlüsselwort aufschnappt. Immer gleich.
 
-## Stil v2 (Pflicht, nie zurück zur flachen Version)
+## Overlay-Stil v2 (nur für Overlays über Footage, z. B. DaVinci; Reels laufen nach der Welten-Methode in SKILL.md)
 Die erste flache Version (einfache Pills und Karten ohne Material) hat Danny als „schlecht“ abgelehnt.
 Referenz-Standbilder: Canvas „C&E Reel – Motion-Stil v2 (Standbilder)“, https://claude.ai/artifact/PF4uBzRhT18Waj8yPpkEcR
 (mit dem Artifact-Tool `read` öffnen und als Vergleichstafel für `gate/JUDGE.md` nutzen).
@@ -54,4 +54,5 @@ Handy-Profilraster, DM-Fenster mit gesendeter Nachricht. Platzhalternamen („D�
 ## Danny-Regeln (aus seinen Notizen, wächst mit `learn.py`)
 1. Stil v2 mit Material, nie flach. (18.11.2026)
 2. Immer zuerst Standbilder zur Freigabe, nie direkt rendern, wenn Konzept oder Overlay-Art neu sind. (18.11.2026)
-3. Danny bleibt Hauptsache: Overlays unten, Gesicht frei. (18.11.2026)
+3. Overlay-Modus: Overlays unten, Gesicht frei. (18.11.2026)
+4. Reels nach der Reel-Cockpit-Methode: Welten und Layoutwechsel (volle Grafik / Split / Danny voll), nie Karten über dem sprechenden Kopf. (23.11.2026)

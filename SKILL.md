@@ -51,22 +51,26 @@ Ziel: 25 bis 50 s, keine tote Luft, erstes Wort bei 0,0 s. Luxemburgisch spricht
 - Blick nach unten (Kopf 9°+ unter normal für 0,2 s+) → `work/eyes_down.json`. Grenzfälle per Bildstreifen mit eigenen Augen prüfen.
 - Jede Schnittstelle → `work/joins.json`. Nie ein nackter Jump Cut: Layoutwechsel, Grafik oder zweite Einstellung darüber.
 
-## 4. Layout aus den Sätzen
-Standard für C&E: **Danny bleibt Hauptsache.** Vollbild-Danny, Overlays in der unteren Hälfte (y 820–1300), Gesicht frei.
-Split (Beweis oben, Danny unten) nur, wenn es echten Beweis gibt: Ads-Manager, Anfrage-Formular, echte Kunden-Ad (freigegeben).
-- Eine Idee pro Einstellung, 2 bis 5 s, keine unter 1,5 s. Wechsel am Satzende oder AUF dem Wort, das die nächste Einstellung zeigt.
-- Frame 0: Danny spricht, eine klare Headline steht (2 bis 6 Wörter). Beweis zuerst, wenn es Beweis gibt.
-- Welten-Engine (`edit.json`): vor dem Bauen `python3 $S/scripts/layout_check.py <P>` → LAYOUT OK.
+## 4. Layout aus den Sätzen (Kern der Methode, nie überspringen)
+**Nie ein sprechender Kopf mit Karten drauf** (Prinzip 26). Drei Layouts wechseln sich ab, die Sätze bestimmen welches:
+- `anim` = **volle Grafik**: Danny ist weg, eine Welt füllt das Bild (Produkt genannt, Zahl, Ablauf, Beweis).
+- `split` = **Grafik oben 50 %, Danny unten 50 %**, Kante an Kante, Untertitel auf der Naht.
+- `jack` = **Danny voll**: nur für Wenden, Meinungen, Pointen (8–22 % der Zeit).
+Danny ist 45–56 % der Zeit im Bild, nie länger als 4,5 s weg. Eine Idee pro Einstellung, 2–5 s, keine unter 1,5 s.
+Wechsel am Satzende oder AUF dem Wort, das die nächste Einstellung zeigt. Frame 0: eine klare Grafik, Danny spricht ab 0,0 s.
+Layout in `edit.json` schreiben (Beispiel `examples/draw/edit.json`); Welten-Engine: `python3 $S/scripts/layout_check.py <P>` → LAYOUT OK.
 
-## 5. Overlays im C&E-Stil v2
-Stil: `styles/ce.json` in den `"style"`-Block von `plan.json` kopieren (`"material": "ce"` schaltet Papier, Glas und Pinselstrich an).
-**Neues Konzept oder neue Overlay-Art: erst 4–5 Standbilder zur Freigabe** (motion-designer-cockpit), nie direkt rendern.
-- Material statt Fläche: Papier-Platte mit Kante oder mattes Glas, leicht gedreht (±1,5–4°). Nie flache Pills ohne Material.
-- 1–2 Satelliten pro Hauptobjekt (Mono-Pill, Icon im Glas- oder Blau-Kreis, große Zahl mit kleinem Label).
-- Realismus: echte Oberflächen nachbauen (Suchfeld, Ergebnis-Karte, Handy-Profilraster, DM-Fenster) mit Platzhalternamen
-  („Däi Betrib“), nie echte Fremdfirmen. Höchstens 3 Wörter + 1 Zahl pro Grafik. `**Wort**` bekommt den blauen Pinselstrich.
-- Text im Bild auf Luxemburgisch (Schreibweise nach lod.lu), Du/Däin groß.
-Graphik-Typen und Aufbau: `references/LAYOUTS.md`, Beispiel `examples/edit-plan.json`.
+## 5. Welten statt Karten (Grafik im C&E-Look)
+5 bis 8 **Welten** pro Reel: je EIN Objekt, das über mehrere Schnitte weiterlebt und sich verändert (die Wand wird gestrichen und
+später als Ergebnis gezeigt, das Handy zeigt 22:04 und klingelt später, der Kalender hakt sich ab). Beispiel: `examples/draw/scenes.js`.
+- Look: heller Papiergrund (`#F7F4EE`, feine blaue Linien), weiße Karten mit weichem Schatten, **handgezeichnete Striche, die sich
+  beim gesprochenen Wort selbst zeichnen** (Kreise, Haken, Unterstreichungen, Pfeile), Handschrift (Caveat) für 1–3 Wörter,
+  C&E-Blau `#2F6BFF` als einzige Akzentfarbe, Montserrat für echte Oberflächen.
+- Echte Oberflächen statt Symbolen: Handy, Chat, Suchfeld, Kalender, Kaart. Platzhalternamen („Däi Betrib“, „Betrib A“), nie echte Fremdfirmen.
+- Text in etwa der Hälfte der Frames, 1–2 Wörter. Die Bewegung ist der Beweis. Höchstens 3 Animationen in den ersten 5 s.
+- Text im Bild auf Luxemburgisch (lod.lu), Du/Däin groß.
+**Immer zuerst 6–8 Standbilder zur Freigabe** (je eins pro Layoutwechsel-Typ und Welt), Layout-Plan als Notiz dazu. Erst nach Freigabe rendern.
+Der ältere C&E-Overlay-Stil v2 (Papier-Platten und Glas über Danny) gilt nur, wenn Danny ausdrücklich „Overlays über mein Footage“ für DaVinci will.
 
 ## 6. Bauen, rendern, Ton
 ```bash
